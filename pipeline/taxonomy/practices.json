@@ -1,0 +1,14 @@
+{ "category": "Practices & Soft Signals", "skills": [
+  { "name": "System design", "re": "system design|distributed systems?|scalab(?:le|ility)|high[- ]availability" },
+  { "name": "CI/CD", "re": "ci/cd|continuous (?:integration|delivery|deployment)|github actions" },
+  { "name": "Testing / TDD", "re": "unit tests?|integration tests?|\btdd\b|test[- ]driven|test automation" },
+  { "name": "Code review", "re": "code reviews?" },
+  { "name": "Ownership / end-to-end", "re": "end[- ]to[- ]end ownership|own (?:the|your) (?:\w+ ){0,3}from|ownership|0 to 1|zero to one|0-to-1" },
+  { "name": "Mentoring", "re": "mentor(?:ing|ship)?|coach(?:ing)?" },
+  { "name": "Cross-functional collaboration", "re": "cross[- ]functional|collaborat(?:e|ion) with (?:product|design)" },
+  { "name": "AI-assisted coding", "re": "copilot|cursor|claude code|ai[- ]assisted (?:coding|development)|ai coding" },
+  { "name": "Security", "re": "security|\bsoc ?2\b|encryption|authentication" },
+  { "name": "Startup pace", "re": "fast[- ]paced|startup|move fast|bias (?:for|toward) action" },
+  { "name": "Open source", "re": "open[- ]source" },
+  { "name": "Publications / research", "re": "publications?|published (?:papers?|research)|neurips|icml|iclr|arxiv" }
+]}
