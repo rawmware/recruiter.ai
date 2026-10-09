@@ -3,11 +3,10 @@
     "anthropic", "databricks", "stripe", "airbnb", "figma", "datadog", "cloudflare",
     "scaleai", "gitlab", "robinhood", "coinbase", "reddit", "duolingo", "instacart",
     "pinterest", "lyft", "discord", "asana", "mongodb", "elastic", "samsara", "brex",
-    "vercel", "twilio", "dropbox", "okta", "toast", "lucidmotors", "waymo", "anduril"
+    "vercel", "twilio", "dropbox", "okta", "toast", "lucidmotors", "waymo",
+    "xai", "togetherai", "nuro", "c3iot", "carta", "chime", "affirm"
   ],
-  "lever": [
-    "palantir", "mistral", "spotify", "plaid", "ro", "weride", "kraken123", "outreach", "attentive"
-  ],
+  "lever": ["palantir", "spotify", "ro", "weride", "outreach", "zoox", "shieldai", "binance"],
   "remotive": ["software-dev", "data"],
   "hn": { "hits": 1 }
 }

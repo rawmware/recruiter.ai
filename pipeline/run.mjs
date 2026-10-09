@@ -91,4 +91,5 @@ async function main() {
   console.log(`${today}: ${jobs.length} target jobs from ${raw.length} postings; ${report.filter((r) => !r.ok).length} source failures; ${snapshot.newToday} new.`);
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1].replace(/\/g, '/').replace(/^([a-z]):/, (m) => m.toUpperCase()) || process.argv[1]?.endsWith('run.mjs')) await main();
+
+if (process.argv[1]?.endsWith('run.mjs')) await main();
