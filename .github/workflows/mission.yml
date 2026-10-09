@@ -1,0 +1,40 @@
+name: Run recruiter.ai mission
+run-name: Recruiter mission by @${{ github.actor }}
+on:
+  workflow_dispatch:
+    inputs:
+      mission:
+        description: 'Mission JSON (copy from the website), or leave empty for the default two-app mission'
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: write
+concurrency:
+  group: recruiter-mission
+  cancel-in-progress: false
+jobs:
+  team:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run the five agents and publish live evidence
+        run: node scripts/mission.mjs
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-5-nano
+          GH_TOKEN: ${{ github.token }}
+          MISSION_JSON: ${{ inputs.mission }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recruiter-mission-evidence
+          path: data/runs/
+          retention-days: 14
