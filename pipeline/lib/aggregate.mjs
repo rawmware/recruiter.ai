@@ -26,8 +26,11 @@ export function aggregate(jobs) {
   for (const t of ['all', ...TRACKS]) {
     const subset = t === 'all' ? jobs : jobs.filter((j) => j.track === t);
     const skillCounts = countBy(subset, (j) => j.skills);
+    const reqCounts = countBy(subset, (j) => j.req ?? []);
+    const prefCounts = countBy(subset, (j) => j.pref ?? []);
+    const sectioned = subset.filter((j) => j.sectioned).length;
     const categories = {};
-    for (const s of toSorted(skillCounts, subset.length)) {
+    for (const s of withSplit(toSorted(skillCounts, subset.length), reqCounts, prefCounts, subset.length)) {
       const cat = categoryOf[s.name] ?? 'Other';
       (categories[cat] ||= []).push(s);
     }
@@ -35,7 +38,8 @@ export function aggregate(jobs) {
     const salaries = subset.map((j) => j.salary).filter(Boolean);
     byTrack[t] = {
       jobs: subset.length,
-      skills: toSorted(skillCounts, subset.length),
+      skills: withSplit(toSorted(skillCounts, subset.length), reqCounts, prefCounts, subset.length),
+      sectionedShare: subset.length ? +(sectioned / subset.length).toFixed(3) : 0,
       categories,
       seniority: toSorted(countBy(subset, (j) => j.seniority), subset.length),
       workMode: toSorted(countBy(subset, (j) => j.workMode), subset.length),
@@ -49,6 +53,11 @@ export function aggregate(jobs) {
     };
   }
   return { total, tracks: byTrack };
+}
+
+// Attach how often each skill appears under a requirements heading vs only under nice-to-have.
+function withSplit(rows, reqCounts, prefCounts, total) {
+  return rows.map((r) => ({ ...r, required: +((reqCounts[r.name] || 0) / (total || 1)).toFixed(4), preferred: +((prefCounts[r.name] || 0) / (total || 1)).toFixed(4) }));
 }
 
 export function topPairs(jobs, limit = 12) {
