@@ -11,5 +11,5 @@
   { "name": "LangChain / LlamaIndex", "re": "langchain|langgraph|llamaindex|llama-index" },
   { "name": "Inference serving", "re": "\\bvllm\\b|inference (?:optimi[sz]ation|serving|engine|infrastructure)|tensorrt|\\bsglang\\b|model serving" },
   { "name": "Multimodal", "re": "multi-?modal|vision[- ]language|speech|text-to-" },
-  { "name": "Safety / alignment", "re": "ai safety|alignment|red[- ]?team|guardrails|responsible ai" }
+  { "name": "Safety / alignment", "re": "ai safety|model alignment|alignment (?:research|team|science)|red[- ]?team|guardrails|responsible ai|trust (?:and|&) safety" }
 ]}

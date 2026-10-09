@@ -7,7 +7,7 @@
   { "name": "Mentoring", "re": "mentor(?:ing|ship)?|coach(?:ing)?" },
   { "name": "Cross-functional collaboration", "re": "cross[- ]functional|collaborat(?:e|ion) with (?:product|design)" },
   { "name": "AI-assisted coding", "re": "copilot|cursor|claude code|ai[- ]assisted (?:coding|development)|ai coding" },
-  { "name": "Security", "re": "security|\\bsoc ?2\\b|encryption|authentication" },
+  { "name": "Security", "re": "application security|appsec|secure (?:coding|software|design)|threat model|vulnerabilit|\\bsoc ?2\\b|penetration test|security engineering" },
   { "name": "Startup pace", "re": "fast[- ]paced|startup|move fast|bias (?:for|toward) action" },
   { "name": "Open source", "re": "open[- ]source" },
   { "name": "Publications / research", "re": "publications?|published (?:papers?|research)|neurips|icml|iclr|arxiv" }
