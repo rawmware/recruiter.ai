@@ -4,7 +4,9 @@ const REQUIRED = /^(?:[-*•]\s*)?(?:requirements?|qualifications|minimum qualif
 const OTHER = /^(?:[-*•]\s*)?(?:responsibilities|what you(?:'|’)?ll do|the role|about (?:the|this) (?:role|team|job)|about us|benefits|perks|compensation|how we work|why join|our (?:mission|values|culture)|equal opportunity|what we offer)\b/i;
 
 function isHeading(line) {
-  return line.length > 2 && line.length < 90 && !/[.;]$/.test(line.trim());
+  // "Bonus: experience with X" carries content after the colon, so it is a line, not a heading.
+  const afterColon = line.includes(':') ? line.slice(line.indexOf(':') + 1).trim() : '';
+  return line.length > 2 && line.length < 90 && !/[.;]$/.test(line.trim()) && afterColon.length < 15;
 }
 
 export function splitSections(text) {
