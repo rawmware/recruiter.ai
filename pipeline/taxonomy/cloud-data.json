@@ -1,0 +1,14 @@
+{ "category": "Cloud & Data", "skills": [
+  { "name": "AWS", "re": "\baws\b|amazon web services|\bec2\b|\bs3\b" },
+  { "name": "GCP", "re": "\bgcp\b|google cloud" },
+  { "name": "Azure", "re": "\bazure\b" },
+  { "name": "Kubernetes", "re": "kubernetes|\bk8s\b|\beks\b|\bgke\b" },
+  { "name": "Docker", "re": "\bdocker\b|containeri[sz]" },
+  { "name": "Terraform / IaC", "re": "terraform|infrastructure as code|pulumi|cloudformation" },
+  { "name": "Kafka / streaming", "re": "\bkafka\b|kinesis|pub/?sub|flink|event[- ]driven" },
+  { "name": "Spark / Databricks", "re": "\bspark\b|databricks|\bdbt\b|airflow|dagster" },
+  { "name": "Snowflake / BigQuery", "re": "snowflake|bigquery|redshift|clickhouse" },
+  { "name": "Postgres", "re": "postgres(?:ql)?" },
+  { "name": "Redis / NoSQL", "re": "\bredis\b|dynamodb|mongodb|cassandra|elasticsearch" },
+  { "name": "Observability", "re": "observability|datadog|prometheus|grafana|opentelemetry" }
+]}
