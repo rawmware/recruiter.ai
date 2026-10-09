@@ -22,3 +22,9 @@ test('enrich drops non-target roles and keeps firstSeen', () => {
   assert.ok(e.skills.includes('PyTorch'));
   assert.equal(e.years, 5);
 });
+
+test('firstSeen is unknown on the first run and today for later newcomers', () => {
+  const job = { id: 'n', source: 's', company: 'c', title: 'Software Engineer', location: '', url: 'u', text: '', postedAt: null };
+  assert.equal(enrich(job, { today: '2026-10-08' }).firstSeen, null);
+  assert.equal(enrich(job, { today: '2026-10-08', previous: new Map([['other', { firstSeen: null }]]) }).firstSeen, '2026-10-08');
+});

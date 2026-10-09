@@ -26,6 +26,7 @@ export function enrich(job, { today, previous = new Map() } = {}) {
     salary: salaryRange(job.text),
     asks: askSentences(job.text),
     postedAt: job.postedAt,
-    firstSeen: prev?.firstSeen ?? today,
+    // Unknown on the very first run (no baseline), so nothing is falsely called new.
+    firstSeen: prev ? prev.firstSeen : previous.size ? today : null,
   };
 }

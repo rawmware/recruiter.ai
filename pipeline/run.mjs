@@ -82,7 +82,7 @@ async function main() {
     generatedAt: new Date().toISOString(),
     sources: report,
     firstRun: !prevLatest,
-    newToday: prevLatest ? jobs.filter((j) => j.firstSeen === today).length : 0,
+    newToday: jobs.filter((j) => j.firstSeen === today).length,
     aggregate: agg,
     movers: movers(agg, baseline),
     baselineDate,
