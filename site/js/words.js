@@ -34,5 +34,5 @@ function table(title, rows, labels = {}) {
 
 export function renderSignals(agg) {
   const box = clear($('#signals'));
-  box.append(table('Seniority mix', agg.seniority), table('Degree expectations', agg.degree, LABELS.degree), table('Visa sponsorship', agg.sponsorship, LABELS.sponsorship), table('Who is hiring most', agg.topCompanies.slice(0, 8)));
+  box.append(table('Seniority mix', agg.seniority), table('Degree expectations', agg.degree, LABELS.degree), table('Visa sponsorship', agg.sponsorship, LABELS.sponsorship), table('Where the roles are', agg.metros ?? []), table('Who is hiring most', agg.topCompanies.slice(0, 8)));
 }
