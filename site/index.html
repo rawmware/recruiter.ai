@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>recruiter.ai · what hiring teams want today</title>
+  <meta name="description" content="A daily-updated view of what companies hiring software, AI and ML engineers are asking for, built from public job postings.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#top"><span class="dot"></span>recruiter<span class="muted">.ai</span></a>
+      <nav aria-label="Sections">
+        <a href="#demand">Demand</a>
+        <a href="#movers">Movers</a>
+        <a href="#words">In their words</a>
+        <a href="#match">My match</a>
+        <a href="#jobs">Roles</a>
+        <a href="#built">How it's built</a>
+      </nav>
+      <div id="freshness" class="fresh" role="status">loading…</div>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <section class="hero">
+      <h1>What recruiters hiring engineers want, <span id="hero-date">today</span>.</h1>
+      <p class="lede">Every number below is computed from live public job postings (Greenhouse, Lever, Remotive and Hacker News “Who is hiring”). A scheduled job refreshes it daily and commits the result, so the history is the git log.</p>
+      <div class="tabs" role="tablist" aria-label="Role track" id="track-tabs"></div>
+      <div id="kpis" class="kpis"></div>
+    </section>
+
+    <section id="demand" aria-labelledby="h-demand">
+      <h2 id="h-demand">What they are asking for</h2>
+      <p class="sub">Share of postings in this track that mention each skill. Grouped by what kind of ask it is.</p>
+      <div id="categories" class="cats"></div>
+      <h3>Skills employers bundle together</h3>
+      <div id="pairs" class="chips"></div>
+    </section>
+
+    <section id="movers" aria-labelledby="h-movers">
+      <h2 id="h-movers">Movers</h2>
+      <p class="sub" id="movers-sub"></p>
+      <div id="movers-grid" class="two"></div>
+      <div id="history" class="history"></div>
+    </section>
+
+    <section id="words" aria-labelledby="h-words">
+      <h2 id="h-words">In their words</h2>
+      <p class="sub">Real requirement lines pulled from postings in this track. Shuffle for a new sample.</p>
+      <button id="shuffle" class="btn">Shuffle</button>
+      <ul id="quotes" class="quotes"></ul>
+      <div id="signals" class="two"></div>
+    </section>
+
+    <section id="match" aria-labelledby="h-match">
+      <h2 id="h-match">My match</h2>
+      <p class="sub">Tick what you can do today. Roles are ranked by how much of their ask you cover, and the gap list shows what to learn next. Stored only in this browser.</p>
+      <div id="profile" class="chips pick"></div>
+      <div class="two">
+        <div><h3>Best-fit roles</h3><ol id="best" class="rank"></ol></div>
+        <div><h3>Biggest gaps (most demanded, not ticked)</h3><ol id="gaps" class="rank"></ol></div>
+      </div>
+    </section>
+
+    <section id="jobs" aria-labelledby="h-jobs">
+      <h2 id="h-jobs">Roles</h2>
+      <div class="filters">
+        <input id="q" type="search" placeholder="Search title, company or skill" aria-label="Search roles">
+        <select id="f-seniority" aria-label="Seniority"><option value="">Any seniority</option></select>
+        <select id="f-mode" aria-label="Work mode"><option value="">Any work mode</option><option>remote</option><option>hybrid</option><option>onsite</option></select>
+        <label class="chk"><input id="f-new" type="checkbox"> New today</label>
+        <label class="chk"><input id="f-salary" type="checkbox"> Pay listed</label>
+        <span id="count" class="muted"></span>
+      </div>
+      <div class="table-wrap"><table id="table"><thead><tr><th>Role</th><th>Company</th><th>Level</th><th>Mode</th><th>Pay</th><th>Asks</th></tr></thead><tbody></tbody></table></div>
+      <button id="more" class="btn">Show more</button>
+    </section>
+
+    <section id="built" aria-labelledby="h-built">
+      <h2 id="h-built">How this was built</h2>
+      <div id="built-body"></div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <span>Built by Roman Cottonham · data from public postings, a snapshot not a guarantee · <a href="https://github.com/rawmware/recruiter.ai">source</a></span>
+  </footer>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
