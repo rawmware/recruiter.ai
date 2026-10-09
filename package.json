@@ -15,7 +15,7 @@
     "data": "node pipeline/run.mjs",
     "buildlog": "node scripts/buildlog.mjs",
     "serve": "node scripts/serve.mjs",
-    "test:pipeline": "node --test tests/html.test.mjs tests/classify.test.mjs tests/sources.test.mjs tests/signals.test.mjs tests/aggregate.test.mjs tests/trends.test.mjs tests/taxonomy.test.mjs tests/buildlog.test.mjs"
+    "test:pipeline": "node --test tests/gradient-ring.test.mjs tests/gradient-ring-parallel.test.mjs tests/html.test.mjs tests/classify.test.mjs tests/sources.test.mjs tests/signals.test.mjs tests/aggregate.test.mjs tests/trends.test.mjs tests/taxonomy.test.mjs tests/buildlog.test.mjs"
   },
   "dependencies": {
     "@openai/agents": "^0.18.0",
