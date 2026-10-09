@@ -1,0 +1,19 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Pipeline and site unit tests
+        run: npm run test:pipeline
+      - name: Taxonomy is valid JSON
+        run: node -e "for (const f of require('fs').readdirSync('pipeline/taxonomy')) JSON.parse(require('fs').readFileSync('pipeline/taxonomy/'+f,'utf8'))"
