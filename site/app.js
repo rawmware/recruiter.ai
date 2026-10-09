@@ -20,6 +20,7 @@ async function main() {
   }
   const { latest, history } = data;
   const store = (() => { try { return localStorage; } catch { return { getItem: () => null, setItem() {} }; } })();
+  let metric = 'share';
   let track = TRACKS.some(([k]) => k === store.getItem('recruiter.ai.track')) ? store.getItem('recruiter.ai.track') : 'all';
 
   const trackJobs = () => (track === 'all' ? latest.jobs : latest.jobs.filter((j) => j.track === track));
@@ -28,7 +29,7 @@ async function main() {
 
   function renderAll() {
     renderKpis(agg(), latest);
-    renderCategories(agg(), { onSkill: (name) => { jobsUi.setQuery(name); $('#jobs').scrollIntoView(); } });
+    renderCategories(agg(), { metric, onSkill: (name) => { jobsUi.setQuery(name); $('#jobs').scrollIntoView(); } });
     renderPairs(agg());
     renderMovers(latest, track);
     renderHistory(history, track);
@@ -51,6 +52,11 @@ async function main() {
     tabs.append(t);
   }
 
+  document.querySelectorAll('[data-metric]').forEach((b) => b.addEventListener('click', () => {
+    metric = b.dataset.metric;
+    document.querySelectorAll('[data-metric]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    renderCategories(agg(), { metric, onSkill: (name) => { jobsUi.setQuery(name); $('#jobs').scrollIntoView(); } });
+  }));
   $('#shuffle').addEventListener('click', () => renderQuotes(trackJobs()));
   $('#hero-date').textContent = new Date(`${latest.date}T00:00:00Z`).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
   $('#freshness').replaceChildren('updated ', h('b', {}, timeAgo(latest.generatedAt)), ` · ${latest.aggregate.total.toLocaleString()} roles`);
