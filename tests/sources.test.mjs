@@ -30,3 +30,11 @@ test('company display names', () => {
   assert.equal(prettyCompany('some-new_co'), 'Some New Co');
   assert.equal(normalizeLever('shieldai', { id: 1, text: 't' }).company, 'Shield AI');
 });
+
+import { normalizeAshby } from '../pipeline/sources/ashby.mjs';
+test('ashby job carries remote flag and compensation text', () => {
+  const j = normalizeAshby('openai', { id: 'a', title: 'ML Eng', isRemote: true, location: 'US', jobUrl: 'u', descriptionPlain: 'Hi', compensation: { scrapeableCompensationSalarySummary: '$100K - $200K' } });
+  assert.equal(j.company, 'OpenAI');
+  assert.equal(j.location, 'Remote - US');
+  assert.match(j.text, /Salary \$100K - \$200K/);
+});
