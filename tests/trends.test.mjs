@@ -28,3 +28,8 @@ test('firstSeen is unknown on the first run and today for later newcomers', () =
   assert.equal(enrich(job, { today: '2026-10-08' }).firstSeen, null);
   assert.equal(enrich(job, { today: '2026-10-08', previous: new Map([['other', { firstSeen: null }]]) }).firstSeen, '2026-10-08');
 });
+
+test('enrich buckets location into a metro', () => {
+  const e = enrich({ id: 'm', source: 's', company: 'c', title: 'Software Engineer', location: 'Seattle, WA', url: 'u', text: '', postedAt: null }, { today: 'd' });
+  assert.equal(e.metro, 'Seattle');
+});

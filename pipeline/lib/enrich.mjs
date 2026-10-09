@@ -1,5 +1,6 @@
 import { classifyTitle, seniorityOf, workModeOf } from './classify.mjs';
 import { extractSkills } from './taxonomy.mjs';
+import { metroOf } from './geo.mjs';
 import { splitSections } from './sections.mjs';
 import { yearsRequired, degreeSignal, sponsorship, salaryRange, askSentences } from './signals.mjs';
 
@@ -21,6 +22,7 @@ export function enrich(job, { today, previous = new Map() } = {}) {
     title: job.title,
     track,
     location: job.location,
+    metro: metroOf(job.location),
     url: job.url,
     seniority: seniorityOf(job.title),
     workMode: workModeOf(job.location, job.text),
