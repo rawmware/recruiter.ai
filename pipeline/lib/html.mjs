@@ -20,6 +20,6 @@ export function htmlToText(html = '') {
   )
     .replace(/[ \t\f\v\u00a0]+/g, ' ')
     .replace(/ *\n */g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
+    .replace(/\n{2,}/g, '\n')
     .trim();
 }
