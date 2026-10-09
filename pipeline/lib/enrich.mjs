@@ -1,5 +1,6 @@
 import { classifyTitle, seniorityOf, workModeOf } from './classify.mjs';
 import { extractSkills } from './taxonomy.mjs';
+import { splitSections } from './sections.mjs';
 import { yearsRequired, degreeSignal, sponsorship, salaryRange, askSentences } from './signals.mjs';
 
 // Turn a raw normalized posting into the compact record the dashboard uses.
@@ -9,6 +10,10 @@ export function enrich(job, { today, previous = new Map() } = {}) {
   if (!track) return null;
   const text = `${job.title}\n${job.text}`;
   const prev = previous.get(job.id);
+  const sections = splitSections(job.text);
+  const hasRequired = sections.required.length > 80;
+  const req = hasRequired ? extractSkills(sections.required) : [];
+  const pref = sections.preferred ? extractSkills(sections.preferred).filter((s) => !req.includes(s)) : [];
   return {
     id: job.id,
     source: job.source,
@@ -20,6 +25,9 @@ export function enrich(job, { today, previous = new Map() } = {}) {
     seniority: seniorityOf(job.title),
     workMode: workModeOf(job.location, job.text),
     skills: extractSkills(text),
+    req,
+    pref,
+    sectioned: hasRequired,
     years: yearsRequired(job.text),
     degree: degreeSignal(job.text),
     sponsorship: sponsorship(job.text),
