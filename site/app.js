@@ -23,7 +23,7 @@ async function main() {
   let track = TRACKS.some(([k]) => k === store.getItem('recruiter.ai.track')) ? store.getItem('recruiter.ai.track') : 'all';
 
   const trackJobs = () => (track === 'all' ? latest.jobs : latest.jobs.filter((j) => j.track === track));
-  const jobsUi = setupJobs({ getJobs: trackJobs, today: latest.date });
+  const jobsUi = setupJobs({ getJobs: trackJobs, today: latest.firstRun ? null : latest.date });
   const agg = () => latest.aggregate.tracks[track];
 
   function renderAll() {

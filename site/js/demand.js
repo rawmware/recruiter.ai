@@ -6,18 +6,20 @@ export function renderKpis(agg, snapshot) {
   const kpi = (value, label) => h('div', { class: 'kpi' }, h('b', {}, value), h('span', {}, label));
   box.append(
     kpi(agg.jobs.toLocaleString(), 'open roles in this track'),
-    kpi(snapshot.newToday.toLocaleString(), 'first seen in the latest run (all tracks)'),
+    kpi(snapshot.newToday.toLocaleString(), snapshot.firstRun ? 'new since last run (starts tomorrow)' : 'new since the previous run (all tracks)'),
     kpi(agg.years.medianMin == null ? '—' : `${agg.years.medianMin} yrs`, `median minimum experience (${pct(agg.years.statedShare)} state one)`),
     kpi(pct(mode.remote ?? 0), 'fully remote'),
     kpi(agg.salary.medianMin ? `$${Math.round(agg.salary.medianMin / 1000)}k–$${Math.round(agg.salary.medianMax / 1000)}k` : '—', `median listed base pay (${agg.salary.n} roles list one)`),
   );
 }
 
+const CATEGORY_ORDER = ['AI & LLM', 'Machine Learning', 'Languages', 'Frameworks & Frontend', 'Cloud & Data', 'Practices & Soft Signals'];
+
 export function renderCategories(agg, { onSkill, limit = 8 }) {
   const box = clear($('#categories'));
   const order = Object.entries(agg.categories)
     .map(([cat, skills]) => ({ cat, skills, weight: skills.reduce((a, s) => a + s.count, 0) }))
-    .sort((a, b) => b.weight - a.weight);
+    .sort((a, b) => CATEGORY_ORDER.indexOf(a.cat) - CATEGORY_ORDER.indexOf(b.cat));
   for (const { cat, skills } of order) {
     const top = skills.slice(0, limit);
     const max = top[0]?.share || 1;
