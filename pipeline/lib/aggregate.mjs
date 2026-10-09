@@ -47,6 +47,7 @@ export function aggregate(jobs) {
       sponsorship: toSorted(countBy(subset, (j) => j.sponsorship), subset.length),
       years: { medianMin: median(years), statedShare: subset.length ? +(years.length / subset.length).toFixed(3) : 0 },
       salary: { n: salaries.length, medianMin: median(salaries.map((s) => s.min)), medianMax: median(salaries.map((s) => s.max)) },
+      metros: toSorted(countBy(subset, (j) => j.metro), subset.length).slice(0, 10),
       topCompanies: toSorted(countBy(subset, (j) => j.company), subset.length).slice(0, 15),
       // Skills that co-occur most often with each other: how employers bundle requirements.
       pairs: topPairs(subset),
