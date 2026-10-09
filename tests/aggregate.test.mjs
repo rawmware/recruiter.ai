@@ -28,7 +28,7 @@ test('required and preferred shares are tracked per skill', () => {
   const r = aggregate([mk('ai', ['Python', 'Rust'], { req: ['Python'], pref: ['Rust'], sectioned: true }), mk('ai', ['Python'], { req: [], pref: [], sectioned: false })]);
   const py = r.tracks.ai.skills.find((s) => s.name === 'Python');
   const rust = r.tracks.ai.skills.find((s) => s.name === 'Rust');
-  assert.equal(py.required, 0.5);
-  assert.equal(rust.preferred, 0.5);
+  assert.equal(py.required, 1);
+  assert.equal(rust.preferred, 1);
   assert.equal(r.tracks.ai.sectionedShare, 0.5);
 });
