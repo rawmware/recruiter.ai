@@ -1,16 +1,16 @@
 { "category": "Machine Learning", "skills": [
-  { "name": "PyTorch", "re": "\bpytorch\b|\btorch\b" },
-  { "name": "TensorFlow", "re": "\btensorflow\b|\bkeras\b" },
-  { "name": "JAX", "re": "\bjax\b" },
-  { "name": "scikit-learn", "re": "scikit-?learn|\bsklearn\b|xgboost|lightgbm" },
+  { "name": "PyTorch", "re": "\\bpytorch\\b|\\btorch\\b" },
+  { "name": "TensorFlow", "re": "\\btensorflow\\b|\\bkeras\\b" },
+  { "name": "JAX", "re": "\\bjax\\b" },
+  { "name": "scikit-learn", "re": "scikit-?learn|\\bsklearn\\b|xgboost|lightgbm" },
   { "name": "Hugging Face", "re": "hugging ?face|transformers library" },
   { "name": "Deep learning", "re": "deep learning|neural networks?" },
-  { "name": "NLP", "re": "\bnlp\b|natural language processing" },
+  { "name": "NLP", "re": "\\bnlp\\b|natural language processing" },
   { "name": "Computer vision", "re": "computer vision|image recognition|object detection" },
   { "name": "Recommender systems", "re": "recommend(?:er|ation) systems?|ranking models?|learning to rank" },
-  { "name": "Reinforcement learning", "re": "reinforcement learning|\brl\b" },
+  { "name": "Reinforcement learning", "re": "reinforcement learning|\\brl\\b" },
   { "name": "MLOps", "re": "mlops|ml (?:platform|infrastructure|pipelines?)|feature stores?|mlflow|kubeflow|model monitoring" },
-  { "name": "Distributed training", "re": "distributed training|\bgpus?\b|\bfsdp\b|deepspeed|megatron" },
+  { "name": "Distributed training", "re": "distributed training|\\bgpus?\\b|\\bfsdp\\b|deepspeed|megatron" },
   { "name": "Statistics / experimentation", "re": "a/b test|experiment(?:ation|al design)|causal inference|statistic(?:s|al)" },
   { "name": "Time series / forecasting", "re": "time[- ]series|forecasting" }
 ]}

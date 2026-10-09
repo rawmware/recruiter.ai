@@ -1,13 +1,13 @@
 { "category": "Frameworks & Frontend", "skills": [
-  { "name": "React", "re": "\breact(?:\.js|js)?\b" },
-  { "name": "Next.js", "re": "next\.?js" },
-  { "name": "Vue", "re": "\bvue(?:\.js)?\b" },
-  { "name": "Angular", "re": "\bangular\b" },
-  { "name": "Django / Flask / FastAPI", "re": "\bdjango\b|\bflask\b|fastapi" },
-  { "name": "Spring", "re": "spring boot|\bspring\b(?= framework| mvc|,)" },
-  { "name": "Rails", "re": "ruby on rails|\brails\b" },
+  { "name": "React", "re": "\\breact(?:\\.js|js)?\\b" },
+  { "name": "Next.js", "re": "next\\.?js" },
+  { "name": "Vue", "re": "\\bvue(?:\\.js)?\\b" },
+  { "name": "Angular", "re": "\\bangular\\b" },
+  { "name": "Django / Flask / FastAPI", "re": "\\bdjango\\b|\\bflask\\b|fastapi" },
+  { "name": "Spring", "re": "spring boot|\\bspring\\b(?= framework| mvc|,)" },
+  { "name": "Rails", "re": "ruby on rails|\\brails\\b" },
   { "name": "GraphQL", "re": "graphql" },
-  { "name": "gRPC / REST APIs", "re": "\bgrpc\b|rest(?:ful)? apis?|api design" },
-  { "name": "Tailwind / CSS", "re": "tailwind|\bcss\b" },
+  { "name": "gRPC / REST APIs", "re": "\\bgrpc\\b|rest(?:ful)? apis?|api design" },
+  { "name": "Tailwind / CSS", "re": "tailwind|\\bcss\\b" },
   { "name": "React Native / Flutter", "re": "react native|flutter" }
 ]}

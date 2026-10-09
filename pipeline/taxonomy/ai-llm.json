@@ -1,15 +1,15 @@
 { "category": "AI & LLM", "skills": [
-  { "name": "LLMs", "re": "\bllms?\b|large language models?" },
-  { "name": "Agents", "re": "\bagent(?:s|ic)\b|ai agents?|multi-agent" },
-  { "name": "RAG", "re": "\brag\b|retrieval[- ]augmented" },
+  { "name": "LLMs", "re": "\\bllms?\\b|large language models?" },
+  { "name": "Agents", "re": "\\bagent(?:s|ic)\\b|ai agents?|multi-agent" },
+  { "name": "RAG", "re": "\\brag\\b|retrieval[- ]augmented" },
   { "name": "Prompt engineering", "re": "prompt (?:engineering|design)|prompting" },
-  { "name": "Evals", "re": "\bevals?\b|evaluation (?:framework|harness|suite)|benchmarks?" },
-  { "name": "Fine-tuning", "re": "fine[- ]?tun(?:e|ing)|\blora\b|\brlhf\b|post-?training|\bdpo\b" },
+  { "name": "Evals", "re": "\\bevals?\\b|evaluation (?:framework|harness|suite)|benchmarks?" },
+  { "name": "Fine-tuning", "re": "fine[- ]?tun(?:e|ing)|\\blora\\b|\\brlhf\\b|post-?training|\\bdpo\\b" },
   { "name": "Vector databases", "re": "vector (?:db|database|store|search)|pinecone|weaviate|pgvector|milvus|qdrant|embeddings?" },
-  { "name": "MCP", "re": "model context protocol|\bmcp\b" },
+  { "name": "MCP", "re": "model context protocol|\\bmcp\\b" },
   { "name": "Function calling / tool use", "re": "tool[- ]use|function[- ]calling|tool calling" },
   { "name": "LangChain / LlamaIndex", "re": "langchain|langgraph|llamaindex|llama-index" },
-  { "name": "Inference serving", "re": "\bvllm\b|inference (?:optimi[sz]ation|serving|engine|infrastructure)|tensorrt|\bsglang\b|model serving" },
+  { "name": "Inference serving", "re": "\\bvllm\\b|inference (?:optimi[sz]ation|serving|engine|infrastructure)|tensorrt|\\bsglang\\b|model serving" },
   { "name": "Multimodal", "re": "multi-?modal|vision[- ]language|speech|text-to-" },
   { "name": "Safety / alignment", "re": "ai safety|alignment|red[- ]?team|guardrails|responsible ai" }
 ]}
