@@ -15,20 +15,25 @@ export function renderKpis(agg, snapshot) {
 
 const CATEGORY_ORDER = ['AI & LLM', 'Machine Learning', 'Languages', 'Frameworks & Frontend', 'Cloud & Data', 'Practices & Soft Signals'];
 
-export function renderCategories(agg, { onSkill, limit = 8 }) {
+export function renderCategories(agg, { onSkill, limit = 8, metric = "share" }) {
+  const note = $("#metric-note");
+  note.textContent = metric === "required"
+    ? `Among the ${pct(agg.sectionedShare)} of postings with a parseable requirements section, how many list the skill there rather than as a nice-to-have.`
+    : "Share of postings in this track that mention each skill. Grouped by what kind of ask it is.";
   const box = clear($('#categories'));
   const order = Object.entries(agg.categories)
     .map(([cat, skills]) => ({ cat, skills, weight: skills.reduce((a, s) => a + s.count, 0) }))
     .sort((a, b) => CATEGORY_ORDER.indexOf(a.cat) - CATEGORY_ORDER.indexOf(b.cat));
   for (const { cat, skills } of order) {
-    const top = skills.slice(0, limit);
-    const max = top[0]?.share || 1;
+    const value = (s) => (metric === "required" ? s.required : s.share);
+    const top = [...skills].sort((a, b) => value(b) - value(a)).slice(0, limit);
+    const max = value(top[0] ?? { share: 1, required: 1 }) || 1;
     box.append(
       h('div', { class: 'cat' }, h('h4', {}, cat),
-        top.map((s) => h('div', { class: 'bar', title: `${s.count} postings · click to list them`, onclick: () => onSkill(s.name) },
+        top.map((s) => h('div', { class: 'bar', title: `${s.count} postings mention it · required in ${pct(s.required)} / preferred-only in ${pct(s.preferred)} of postings with a requirements section · click to list them`, onclick: () => onSkill(s.name) },
           h('span', { class: 'name' }, s.name),
-          h('span', { class: 'track' }, h('span', { class: 'fill', style: `width:${(s.share / max) * 100}%;display:block` })),
-          h('span', { class: 'pct' }, pct(s.share))))),
+          h('span', { class: 'track' }, h('span', { class: 'fill', style: `width:${(value(s) / max) * 100}%;display:block` })),
+          h('span', { class: 'pct' }, pct(value(s)))))),
     );
   }
 }
