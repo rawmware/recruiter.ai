@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gradient Ring · distributed training you can watch</title>
+  <meta name="description" content="Watch a real neural network train across simulated machines, see the ring all-reduce move gradients, and measure exactly when adding workers stops paying off.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <header class="bar">
+    <a class="back" href="../../index.html">← recruiter.ai</a>
+    <span class="tag">Lab 01 · Distributed training</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">An original interactive lab</p>
+      <h1>Gradient <span class="grad">Ring</span></h1>
+      <p class="lede">Eight machines. One brain. Watch a real neural network learn while its workers pass gradients around a ring, then find out exactly when adding more machines stops helping.</p>
+      <div class="proofs" id="proofs">
+        <div class="proof"><b id="p-diff">—</b><span>max gradient error vs. a single machine</span></div>
+        <div class="proof"><b id="p-div">—</b><span>weight divergence between replicas</span></div>
+        <div class="proof"><b id="p-acc">—</b><span>accuracy on all data</span></div>
+      </div>
+    </section>
+
+    <section class="lab" aria-label="Training lab">
+      <aside class="panel controls" aria-label="Controls">
+        <h2>Cluster</h2>
+        <label>Workers <output id="o-workers">4</output><input id="workers" type="range" min="1" max="16" value="4"></label>
+        <label>Global batch <output id="o-batch">64</output><input id="batch" type="range" min="16" max="256" step="16" value="64"></label>
+        <label>Learning rate <output id="o-lr">0.15</output><input id="lr" type="range" min="0.01" max="0.5" step="0.01" value="0.15"></label>
+        <div class="row"><span>Sync algorithm</span>
+          <div class="seg" role="group" aria-label="Algorithm"><button data-algo="ring" aria-pressed="true">Ring</button><button data-algo="server" aria-pressed="false">Param server</button></div>
+        </div>
+        <label>Dataset <select id="dataset"><option value="moons">Two moons</option><option value="spiral">Spiral</option><option value="rings">Concentric rings</option></select></label>
+
+        <h2>Hardware model</h2>
+        <label>Model size <output id="o-model">100 MB</output><input id="model" type="range" min="1" max="2000" value="100"></label>
+        <label>Link bandwidth <output id="o-bw">50 GB/s</output><input id="bw" type="range" min="1" max="100" value="50"></label>
+        <label>Link latency <output id="o-lat">0.05 ms</output><input id="lat" type="range" min="0" max="2" step="0.05" value="0.05"></label>
+        <label>Compute / sample <output id="o-cpu">4 ms</output><input id="cpu" type="range" min="0.2" max="10" step="0.2" value="4"></label>
+        <label>Comm/compute overlap <output id="o-ov">0%</output><input id="ov" type="range" min="0" max="100" step="5" value="0"></label>
+        <label>Slowest worker <output id="o-strag">1.0×</output><input id="strag" type="range" min="1" max="4" step="0.1" value="1"></label>
+
+        <div class="buttons">
+          <button id="play" class="primary">▶ Train</button>
+          <button id="step">Step</button>
+          <button id="reset">Reset</button>
+        </div>
+        <div class="row"><span>Speed</span>
+          <div class="seg" role="group" aria-label="Speed"><button data-speed="slow" aria-pressed="false">Slow</button><button data-speed="normal" aria-pressed="true">Normal</button><button data-speed="turbo" aria-pressed="false">Turbo</button></div>
+        </div>
+      </aside>
+
+      <div class="stage">
+        <div class="panel"><h2>The model <small id="phase-model"></small></h2><canvas id="cv-model" width="520" height="420" aria-label="Decision boundary"></canvas></div>
+        <div class="panel"><h2>The ring <small id="phase-ring">idle</small></h2><canvas id="cv-ring" width="520" height="420" aria-label="All-reduce animation"></canvas></div>
+        <div class="panel wide">
+          <div class="metrics" id="metrics"></div>
+          <canvas id="cv-loss" width="1080" height="150" aria-label="Loss curve"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="scale" aria-labelledby="h-scale">
+      <h2 id="h-scale">When does adding machines stop paying off?</h2>
+      <p class="sub">Computed live from the hardware model on the left. Drag the model size or bandwidth and watch the curves bend.</p>
+      <div class="two">
+        <div class="panel"><h3>Speed-up vs. workers</h3><canvas id="cv-scale" width="560" height="320" aria-label="Scaling curves"></canvas><div class="legend"><i class="l1"></i>Ring <i class="l2"></i>Param server <i class="l3"></i>Ideal</div></div>
+        <div class="panel"><h3>Where one step's time goes</h3><canvas id="cv-break" width="560" height="320" aria-label="Step time breakdown"></canvas><div class="legend"><i class="l1"></i>Compute <i class="l4"></i>Communication (exposed)</div></div>
+      </div>
+      <div class="insight" id="insight"></div>
+    </section>
+
+    <section class="why">
+      <h2>What this is, and why it matters</h2>
+      <div class="cards">
+        <article><h3>What it does</h3><p>Trains a small neural network the way large models are trained: the batch is split across workers, each computes a gradient on its slice, and the workers sum their gradients before everyone takes the same step. Every number on this page is computed live, in your browser, from real maths.</p></article>
+        <article><h3>Why the ring</h3><p>Sending every gradient to one server makes that server's link carry N copies. A ring has each worker talk only to a neighbour, so traffic per worker stays about twice the model size however many workers join. That is the idea behind NCCL and Horovod.</p></article>
+        <article><h3>Why it's honest</h3><p>Each step the lab recomputes the gradient on one machine and compares. The error stays near machine precision and the replicas never drift apart, so you can see that parallelism changes the speed, not the answer.</p></article>
+        <article><h3>Why it's important</h3><p>Frontier models cannot fit or finish on one device. Knowing where communication, stragglers and batch size eat your scaling is the difference between a cluster that is fast and one that is merely expensive.</p></article>
+      </div>
+    </section>
+
+    <section class="how">
+      <h2>How a step works</h2>
+      <ol class="steps">
+        <li><b>Shard</b><span>The global batch is split across workers.</span></li>
+        <li><b>Compute</b><span>Each worker back-propagates its slice into a gradient vector.</span></li>
+        <li><b>Scatter-reduce</b><span>Chunks travel the ring, each hop adding into the next worker's copy.</span></li>
+        <li><b>All-gather</b><span>The finished chunks circulate until everyone has the full sum.</span></li>
+        <li><b>Update</b><span>Every replica applies the identical momentum step.</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="foot">Gradient Ring · built from scratch in plain JavaScript, no libraries. Cost figures come from the standard latency-bandwidth model, not from timing real hardware.</footer>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
