@@ -12,7 +12,6 @@ export function classifyTitle(title = '') {
   if (!title || EXCLUDE.test(title)) return null;
   const isEng = SWE_TITLE.test(title) || ML_TITLE.test(title) || AI_TITLE.test(title);
   if (!isEng) return null;
-  if (ML_TITLE.test(title) && !/\bai\b/i.test(title)) return 'ml';
   if (AI_TITLE.test(title)) return 'ai';
   if (ML_TITLE.test(title)) return 'ml';
   // "engineer" alone is too vague unless the title is clearly technical.
