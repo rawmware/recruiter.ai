@@ -5,6 +5,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchGreenhouse } from './sources/greenhouse.mjs';
 import { fetchLever } from './sources/lever.mjs';
+import { fetchAshby } from './sources/ashby.mjs';
 import { fetchRemotive } from './sources/remotive.mjs';
 import { fetchHn } from './sources/hn.mjs';
 import { enrich } from './lib/enrich.mjs';
@@ -27,6 +28,7 @@ export async function collect(sources) {
   const tasks = [
     ...sources.greenhouse.map((b) => ({ label: `greenhouse:${b}`, run: () => fetchGreenhouse(b) })),
     ...sources.lever.map((s) => ({ label: `lever:${s}`, run: () => fetchLever(s) })),
+    ...(sources.ashby ?? []).map((b) => ({ label: `ashby:${b}`, run: () => fetchAshby(b) })),
     ...sources.remotive.map((c) => ({ label: `remotive:${c}`, run: () => fetchRemotive(c) })),
     { label: 'hn:who-is-hiring', run: () => fetchHn() },
   ];
