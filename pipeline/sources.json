@@ -1,0 +1,13 @@
+{
+  "greenhouse": [
+    "anthropic", "databricks", "stripe", "airbnb", "figma", "datadog", "cloudflare",
+    "scaleai", "gitlab", "robinhood", "coinbase", "reddit", "duolingo", "instacart",
+    "pinterest", "lyft", "discord", "asana", "mongodb", "elastic", "samsara", "brex",
+    "vercel", "twilio", "dropbox", "okta", "toast", "lucidmotors", "waymo", "anduril"
+  ],
+  "lever": [
+    "palantir", "mistral", "spotify", "plaid", "ro", "weride", "kraken123", "outreach", "attentive"
+  ],
+  "remotive": ["software-dev", "data"],
+  "hn": { "hits": 1 }
+}
