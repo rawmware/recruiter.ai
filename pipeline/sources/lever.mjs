@@ -1,4 +1,5 @@
 import { getJson } from '../lib/http.mjs';
+import { prettyCompany } from '../lib/names.mjs';
 
 export function normalizeLever(site, p) {
   const listText = (p.lists ?? []).map((l) => `${l.text}\n${(l.content || '').replace(/<[^>]+>/g, '\n')}`).join('\n');
@@ -6,7 +7,7 @@ export function normalizeLever(site, p) {
   return {
     id: `lv:${site}:${p.id}`,
     source: 'lever',
-    company: site,
+    company: prettyCompany(site),
     title: p.text,
     location: p.categories?.location || p.country || '',
     url: p.hostedUrl,

@@ -23,3 +23,10 @@ test('hn comment parses pipe header', () => {
   assert.equal(j.title, 'Senior ML Engineer');
   assert.equal(j.location, 'Remote');
 });
+
+import { prettyCompany } from '../pipeline/lib/names.mjs';
+test('company display names', () => {
+  assert.equal(prettyCompany('shieldai'), 'Shield AI');
+  assert.equal(prettyCompany('some-new_co'), 'Some New Co');
+  assert.equal(normalizeLever('shieldai', { id: 1, text: 't' }).company, 'Shield AI');
+});
